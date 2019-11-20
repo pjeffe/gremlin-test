@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.apache.tinkerpop.gremlin.process.traversal.Path;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
+import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Element;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.T;
@@ -61,6 +62,12 @@ public class App {
 		if (Map.class.isAssignableFrom(cls)) {
 			System.out.println("Map: " + results);
 		}
+		else if (Vertex.class.isAssignableFrom(cls)) {
+			System.out.println("Vertex: " + getElement((Element)results));
+		}
+		else if (Edge.class.isAssignableFrom(cls)) {
+			System.out.println("Edge: " + getElement((Element)results));
+		}
 		else if (Path.class.isAssignableFrom(cls)) {
 			// dump each element in the path
 			System.out.println("Path:");
@@ -68,9 +75,6 @@ public class App {
 				System.out.print("  ");
 				dump(element);
 			});
-		}
-		else if (Element.class.isAssignableFrom(cls)) {
-			System.out.println((Vertex.class.isAssignableFrom(cls) ? "Vertex: " : "Edge: ") + getElement((Element)results));
 		}
 		else {
 			throw new IllegalArgumentException("Invalid result type: " + cls);
